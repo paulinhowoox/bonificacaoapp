@@ -13,10 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/* Route::get('/', function () {
+    return view('home');
+}); */
+
+Route::get('/', 'HomeController@index')->name('dashboard');
+
+Route::middleware(['auth'])->group(function(){
+    Route::prefix('manager')->name('manager.')->namespace('Manager')->group(function(){
+        Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+        Route::resource('employees', 'EmployeeController');
+    });
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('manager')->group(function(){
+    Auth::routes(['register' => false]);
+});
