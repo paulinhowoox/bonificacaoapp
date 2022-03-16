@@ -36,7 +36,7 @@ class PermissionController extends Controller
     public function create()
     {
         $roles = $this->role->all();
-        return view('manager.permissions.form', compact('roles'));
+        return view('manager.permissions.create', compact('roles'));
     }
 
     /**
