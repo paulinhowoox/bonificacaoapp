@@ -121,16 +121,35 @@
                             </li>
 
                             <li class="sidebar-item">
+                                <a href="javascript:void(0)" class="sidebar-link has-arrow waves-effect waves-dark" aria-expanded="false">
+                                    <i class="fas fa-cog"></i><span class="hide-menu"> Configurações </span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('manager.permissions.index') }}" class="sidebar-link">
+                                            <i class="fa fa-unlock"></i><span class="hide-menu"> Permissões </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('manager.roles.index') }}" class="sidebar-link">
+                                            <i class="fa fa-lock"></i><span class="hide-menu"> Regras </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('manager.employees.index') }}" aria-expanded="false">
-                                    <i class="fas fa-image"></i><span class="hide-menu">Funcionários</span>
+                                    <i class="fas fa-user"></i><span class="hide-menu">Funcionários</span>
                                 </a>
                             </li>
 
-                            {{-- <li class="sidebar-item">
+                            <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('manager.users.index') }}" aria-expanded="false">
                                     <i class="fas fa-users"></i><span class="hide-menu">Administradores</span>
                                 </a>
-                            </li> --}}
+                            </li>
+
                         </ul>
                     </nav>
                     <!-- End Sidebar navigation -->

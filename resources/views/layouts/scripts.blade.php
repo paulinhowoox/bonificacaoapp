@@ -39,37 +39,22 @@
 <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
 
 <script type="text/javascript">
-    /**
-     * Variables
-    */
-    let date_format = "dd/mm/yyyy";
-    let pt_br_link = "//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json";
-    let pt_br = "pt-BR";
-    let options_date_picker = {
-        format: date_format,
-        language: pt_br,
-        todayBtn: "linked",
-        todayHighlight: true,
-        toggleActive: true,
-        changeMonth: true,
-        changeYear: true
-    }
+  /**
+   * Variables
+  */
+  let date_format = "dd/mm/yyyy";
+  let pt_br_link = "//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json";
+  let pt_br = "pt-BR";
+  let options_date_picker = {
+      format: date_format,
+      language: pt_br,
+      todayBtn: "linked",
+      todayHighlight: true,
+      toggleActive: true,
+      changeMonth: true,
+      changeYear: true
+  }
   $(".select2").select2();
-
-  //MASCARA PARA CELULAR
-  var maskBehavior = function(val) {
-        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-      },
-      options = {
-          onKeyPress: function(val, e, field, options) {
-            field.mask(maskBehavior.apply({}, arguments), options);
-          }
-      };
-  $('input#phone_number').mask(maskBehavior, options);
-
-  $('input[name="photos"]').on('change', function() {
-    $('#photos').html(document.getElementById("fileUploader").files[0].name);
-  });
 
   $('#date').datepicker(options_date_picker);
 
@@ -80,7 +65,7 @@
     $('#delete-button').attr('data-id', $(this).attr('data-id'));
 
     $('#delete-button').on('click', function() {
-      form.submit();
+        form.submit();
     });
   });
 
