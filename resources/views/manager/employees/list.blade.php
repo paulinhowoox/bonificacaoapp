@@ -101,17 +101,13 @@
                         <td>{{ $employee->full_name }}</td>
                         <td>{{ $employee->current_balance }}</td>
                         <td class="actions">
-                            @can('employee-show')
-                                <a href="{{ route('manager.employees.show', $employee->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
-                            @endcan
-                            @can('employee-delete')
-                                <form class="form-delete" action="{{ route('manager.employees.destroy', $employee->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
+                            <a href="{{ route('manager.employees.show', $employee->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                            <form class="form-delete" action="{{ route('manager.employees.destroy', $employee->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                                    <a href="#" class="btn btn-danger btn-sm form-delete" data-id="{{ $employee->id }}" data-name="{{ $employee->full_name }}" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-trash"></i></a>
-                                </form>
-                            @endcan
+                                <a href="#" class="btn btn-danger btn-sm form-delete" data-id="{{ $employee->id }}" data-name="{{ $employee->full_name }}" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-trash"></i></a>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
