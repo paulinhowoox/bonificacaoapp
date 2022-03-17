@@ -13,21 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Route::get('/', function () {
-    return view('home');
-}); */
-
 Route::get('/', 'HomeController@index')->name('dashboard');
 
 Route::middleware(['auth'])->group(function(){
     Route::prefix('manager')->name('manager.')->namespace('Manager')->group(function(){
         Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
-        // Permissões e Regras
         Route::resource('permissions', 'PermissionController')->except('show');
         Route::resource('roles', 'RoleController')->except('show');
         Route::resource('employees', 'EmployeeController');
-        Route::resource('users', 'UserController');
+        Route::resource('users', 'UserController')->except('show');
     });
 });
 
