@@ -9,7 +9,7 @@
         <div class="col-md-9">
             <input type="text" class="form-control @error('full_name') is-invalid @enderror" id="full_name"
                 name="full_name" value="{{ $employee->full_name ?? old('full_name') }}">
-            @error('title')
+            @error('full_name')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -23,7 +23,8 @@
         <div class="col-md-9">
             <input type="text" class="form-control @error('current_balance') is-invalid @enderror" id="current_balance"
                 name="current_balance" value="{{ $employee->current_balance ?? old('current_balance') }}">
-            @error('title')
+                <small class="text-danger">utilize "." ao inves de "," para separar os valores, ex.: 23.39; 23500.15</small>
+            @error('current_balance')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

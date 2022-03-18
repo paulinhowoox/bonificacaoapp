@@ -58,7 +58,7 @@
                             </div>
                             <input type="text" class="form-control input-sm date-range-filter" id="fromDate" name="fromDate" data-date-format="dd/mm/yyyy" autocomplete="off">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon2">Até:</span>
+                                <span class="input-group-text" id="basic-addon2">Até: </span>
                             </div>
                             <input type="text" class="form-control input-sm date-range-filter" id="toDate" name="toDate" data-date-format="dd/mm/yyyy" autocomplete="off">
                         </div>
@@ -87,20 +87,22 @@
             <table id="employee_table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Data</th>
+                        <th>ID</th>
+                        <th>Data de Criação</th>
                         <th>Nome</th>
-                        <th>Saldo</th>
+                        <th>Saldo Atual</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($employees as $employee)
                     <tr>
+                        <td>{{ $employee->id }}</td>
                         <td>{{ $employee->created_at->format('d/m/Y') }}</td>
-                        {{-- <td>{{ $employee->created_at->format('H:i') }}</td> --}}
                         <td>{{ $employee->full_name }}</td>
-                        <td>{{ $employee->current_balance }}</td>
+                        <td>R$ {{ number_format($employee->current_balance, 2, ',', '.') }}</td>
                         <td class="actions">
+                            <a href="{{ route('manager.employees.edit', $employee->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                             <a href="{{ route('manager.employees.show', $employee->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
                             <form class="form-delete" action="{{ route('manager.employees.destroy', $employee->id) }}" method="POST">
                                 @csrf
@@ -114,7 +116,8 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Data</th>
+                        <th>ID</th>
+                        <th>Data de Criação</th>
                         <th>Nome</th>
                         <th>Saldo</th>
                         <th>Ação</th>
@@ -152,7 +155,7 @@
         function (settings, data, dataIndex) {
             let fromDate = $('#fromDate').datepicker("getDate");
             let toDate = $('#toDate').datepicker("getDate");
-            let d = data[0].split("/");
+            let d = data[1].split("/");
             let startDate = new Date(d[1] + "/" + d[0] + "/" + d[2]);
 
             if (fromDate == null && toDate == null) { return true; }
@@ -188,7 +191,7 @@
                 $('#table-employee-filter').detach().show()
             );
             $('#table-employee-filter .full_name').on('change', function () {
-                tableEmployee.column(4).search(this.value).draw();
+                tableEmployee.column(2).search(this.value).draw();
             });
         },
         "language": {
@@ -201,7 +204,7 @@
                 title: 'Relatório de Funcionários',
                 className: 'green',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4],
+                    columns: [0, 1, 2, 3],
                     orthogonal: 'export'
                 }
             },
@@ -211,7 +214,7 @@
                 text: 'Exportar PDF',
                 title: 'Relatório de Funcionários',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4],
+                    columns: [0, 1, 2, 3],
                     orthogonal: 'export'
                 }
             }

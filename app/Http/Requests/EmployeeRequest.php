@@ -25,7 +25,7 @@ class EmployeeRequest extends FormRequest
     {
         return [
             'full_name' => ['required', 'min:3'],
-            'current_balance' => 'required'
+            'current_balance' => ['required', "regex:/^\d+(\.\d{1,2})?$/"]
         ];
     }
 }

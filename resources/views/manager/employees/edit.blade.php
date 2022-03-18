@@ -24,7 +24,7 @@
 @section('content')
 <div class="col-12">
     <div class="card">
-        <form class="form-horizontal" action="{{ route('manager.employees.update', $employee->id) }}" method="POST" enctype="multipart/form-data">
+        <form class="form-horizontal" action="{{ route('manager.employees.update', $employee->id) }}" method="POST">
             @csrf
             @method('PUT')
 

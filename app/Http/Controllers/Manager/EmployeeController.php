@@ -49,9 +49,10 @@ class EmployeeController extends Controller
     public function store(EmployeeRequest $request)
     {
         $data = $request->all();
-        $employee = $this->employee->create($data);
+        $user = auth()->user();
+        $employee = $user->employee()->create($data, ['user_id' => $user->id]);
 
-        flash("Funcionário {$employee->full_name} cadastrado com sucesso!");
+        flash('Funcionário "' . $employee->full_name . '" cadastrado com sucesso!')->success();
         return redirect()->route('manager.employees.index');
     }
 
@@ -78,7 +79,7 @@ class EmployeeController extends Controller
     {
         $employee = $this->employee->findOrFail($id);
 
-        return view('manager.employees.show', compact('employee'));
+        return view('manager.employees.edit', compact('employee'));
     }
 
     /**
@@ -91,11 +92,12 @@ class EmployeeController extends Controller
     public function update(EmployeeRequest $request, $id)
     {
         $data = $request->all();
+        $user = auth()->user();
         $employee = $this->employee->find($id);
 
-        $employee = $employee->update($data);
+        $employee->update($data, ['user_id' => $user->id]);
 
-        flash("Funcionário {$employee->full_name} atualizado com sucesso!");
+        flash('Funcionário "' . $employee->full_name . '" atualizado com sucesso!')->success();
         return redirect()->route('manager.employees.index');
     }
 
@@ -108,9 +110,9 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         $employee = $this->employee->find($id);
-        $employee = $employee->delete();
+        $employee->delete();
 
-        flash("Funcionário {$employee->full_name} excluido com sucesso!");
+        flash('Funcionário "' . $employee->full_name . '" excluido com sucesso!')->success();
         return redirect()->route('manager.employees.index');
     }
 }

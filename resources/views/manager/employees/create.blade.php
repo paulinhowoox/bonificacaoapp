@@ -24,8 +24,7 @@
 @section('content')
     <div class="col-12">
         <div class="card">
-            <form class="form-horizontal" action="{{ route('manager.employees.store') }}" method="POST"
-                enctype="multipart/form-data">
+            <form class="form-horizontal" action="{{ route('manager.employees.store') }}" method="POST">
                 @csrf
 
                 @include('manager.employees._partials.form', ['disabled' => false])
