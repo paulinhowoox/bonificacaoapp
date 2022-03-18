@@ -16,8 +16,9 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+
             $table->string('full_name');
-            $table->string('current_balance');
+            $table->decimal('current_balance', 10, 2);
             $table->timestamps();
         });
     }
