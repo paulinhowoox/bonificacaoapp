@@ -123,7 +123,7 @@
                         <ul id="sidebarnav" class="p-t-30">
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('manager.dashboard') }}" aria-expanded="false">
-                                    <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
+                                    <i class="mdi mdi-view-dashboard"></i><span class="hide-menu"> Dashboard </span>
                                 </a>
                             </li>
 
@@ -147,13 +147,19 @@
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('manager.employees.index') }}" aria-expanded="false">
-                                    <i class="fas fa-user"></i><span class="hide-menu">Funcionários</span>
+                                    <i class="fas fa-user"></i><span class="hide-menu"> Funcionários </span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('manager.transactions.index') }}" aria-expanded="false">
+                                    <i class="fas fa-calculator"></i><span class="hide-menu"> Movimentações </span>
                                 </a>
                             </li>
 
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('manager.users.index') }}" aria-expanded="false">
-                                    <i class="fas fa-users"></i><span class="hide-menu">Administradores</span>
+                                    <i class="fas fa-users"></i><span class="hide-menu"> Administradores </span>
                                 </a>
                             </li>
 

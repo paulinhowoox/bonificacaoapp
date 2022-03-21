@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function(){
         Route::resource('roles', 'RoleController')->except('show');
         Route::resource('employees', 'EmployeeController');
         Route::resource('users', 'UserController')->except('show');
+        Route::resource('transactions', 'TransactionController');
     });
 });
 

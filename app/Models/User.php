@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $this->hasMany(Employee::class);
     }
 
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
     public function isAdmin(): bool
     {
         return in_array($this->email, config('acl.admins'));
