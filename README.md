@@ -1,60 +1,68 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Sistema de Gerenciamento de Saldo
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Sistema para gerenciamento do saldo dos funcionários.
 
-## About Laravel
+## Sobre o Sistema de Gerenciamento de Saldo
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Projeto criado para simples gestão de funcionários e seus saldos na plataforma.
+Sistema conta com tipos de acesso para facilitar a entrada em areas restritas a cada um conforme seu tipo.
+Sistema conta com a aba "movimentação" que o administrador pode fazer uma entrada/saida do saldo do funcionário, e ainda utilizando o campo de "OBS" ele pode descrever em poucas palavras o que está sendo feito.
+Cada movimentação do saldo do funcionário seja entrada ou saida é feita de forma sincronizada com o saldo do mesmo.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Stack de Desenvolvimento
 
-## Learning Laravel
+- PHP 8.0
+- Backend Laravel Framework 7.
+- Frontend Bootstrap 4.
+- MySQL 8.0
+- Matrix Admin Template
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Antes de começar
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Tenha no minimo o PHP 8.0 instalado em sua máquina ou no docker ou o que for usar para desenvolver/testar.
 
-## Laravel Sponsors
+Tenhas as extensões PHP recomendadas e o MySQL na sua versão 5.7 ou superior.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Tenha o [Composer](https://getcomposer.org) instalado
 
-### Premium Partners
+E principalmente o Laravel instalado em seu ambiente local seguindo os passos da documentação oficial
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+[Documentação Oficial](https://laravel.com/docs/7.x/installation#installing-laravel).
 
-## Contributing
+## Configurando o .env do projeto
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Depois de criar o seu banco de dados em seu SGBD favorito, faça:
 
-## Code of Conduct
+Abra o arquivo na raiz do projeto chamado .env.example renomeie para .env e substitua as chaves contendo DB_*, exemplo:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- DB_DATABASE=nome_do_banco_que_voce_criou
+- DB_USERNAME=seu_user_local
+- DB_PASSWORD=caso_haja_senha
 
-## Security Vulnerabilities
+Na ultima chave o password deixar em branco caso não tenha senha local
+## Comandos para execução do projeto
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- php artisan migrate
+- php artisan db:seed
+- php artisan serve (ou qualquer outra forma, ex.: valet link & valet open)
+
+## Ou comando reduzido pode ser:
+
+- php artisan migrate --seed
+- php artisan serve (ou qualquer outra forma, ex.: valet link & valet open)
+
+## Para o ambiente de produção
+Comente o foreach de permissões no arquivo AuthServiceProvider para não dar conflito.
+Feito isso execute:
+- php artisan migrate
+Volte ao ambiente local e descomente o codigo, faça o push para o ambiente e pronto.
+
+## Problemas com Permission Denied
+Qualquer problema com as permissões na pasta do Laravel storage/*
+Executar:
+- sudo chown -R $USER:www-data storage/
+Em 99% dos casos isso ja vai resolver
 
 ## License
 
