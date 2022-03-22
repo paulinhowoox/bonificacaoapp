@@ -6,13 +6,13 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">Funcionários</h4>
+                <h4 class="page-title">Movimentação do funcionário: {{ $employee->full_name }}</h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('manager.employees.index') }}">Funcionários</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ $employee->full_name }}</li>
+                            <li class="breadcrumb-item active" aria-current="page">Movimentação do funcionário: {{ $employee->full_name }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -47,7 +47,51 @@
                     </div>
                 </div>
             </div>
+            <hr>
+            <div class="card-body">
+                <h5 class="card-title mb-0">Movimentações</h5>
+            </div>
+            <table id="transaction_table" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Data de Movimentação</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Observação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($transactions as $transaction)
+                        <tr class="@if($transaction->transaction_type == 'entrada') entrada @else saida @endif">
+                            <td>{{ $transaction->created_at->format('d/m/Y') }}</td>
+                            <td>{{ ucwords($transaction->transaction_type) }}</td>
+                            <td>R$ {{ number_format($transaction->amount, 2, ',', '.') }}</td>
+                            <td>{{ $transaction->description }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Data de Movimentação</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Observação</th>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
-    </div>
+@endsection
+
+@section('scripts')
+<script>
+    let tableTransaction = $('#transaction_table').DataTable({
+        responsive: true,
+        order: [[0, 'desc']],
+        lengthChange: false,
+        "language": {
+            "url": pt_br_link
+        }
+    });
+</script>
 @endsection

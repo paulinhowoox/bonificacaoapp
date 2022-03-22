@@ -21,9 +21,10 @@ Route::middleware(['auth'])->group(function(){
 
         Route::resource('permissions', 'PermissionController')->except('show');
         Route::resource('roles', 'RoleController')->except('show');
-        Route::resource('employees', 'EmployeeController');
         Route::resource('users', 'UserController')->except('show');
         Route::resource('transactions', 'TransactionController');
+        Route::resource('employees', 'EmployeeController');
+        Route::get('employees/{id}/transactions', 'EmployeeController@transactions')->name('employee.transactions.show');
     });
 });
 

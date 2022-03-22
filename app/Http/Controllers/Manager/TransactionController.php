@@ -71,6 +71,8 @@ class TransactionController extends Controller
             $employee[0]->update();
         }
 
+        $transaction->employees()->sync($data['employee_id']);
+
         flash('Movimentação do funcionário(a) "' . $transaction->employee->full_name . '" cadastrada com sucesso!')->success();
         return redirect()->route('manager.transactions.index');
     }
@@ -129,6 +131,8 @@ class TransactionController extends Controller
             $employee[0]->current_balance -= $data['amount'];
             $employee[0]->update();
         }
+
+        $transaction->employees()->sync($data['employee_id']);
 
         flash('Movimentação do funcionário(a) "' . $transaction->employee->full_name . '" atualizada com sucesso!')->success();
         return redirect()->route('manager.transactions.index');

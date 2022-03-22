@@ -6,15 +6,17 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
+use App\Models\Transaction;
 
 class EmployeeController extends Controller
 {
 
-    private $employee;
+    private $employee, $transaction;
 
-    public function __construct(Employee $employee)
+    public function __construct(Employee $employee, Transaction $transaction)
     {
         $this->employee = $employee;
+        $this->transaction = $transaction;
     }
 
     /**
@@ -114,5 +116,15 @@ class EmployeeController extends Controller
 
         flash('Funcionário "' . $employee->full_name . '" excluido com sucesso!')->success();
         return redirect()->route('manager.employees.index');
+    }
+
+    public function transactions($id)
+    {
+        if(!$employee = $this->employee->find($id)) {
+            return redirect()->route('manager.employees.index');
+        }
+        $transactions = $employee->transactions()->get();
+
+        return view('manager.employees.show', compact('transactions', 'employee'));
     }
 }

@@ -117,24 +117,24 @@
                 </thead>
                 <tbody>
                     @foreach($transactions as $transaction)
-                    <tr class="@if($transaction->transaction_type == 'entrada') entrada @else saida @endif">
-                        <td>{{ $transaction->id }}</td>
-                        <td>{{ ucwords($transaction->transaction_type) }}</td>
-                        <td>R$ {{ number_format($transaction->amount, 2, ',', '.') }}</td>
-                        <td>{{ $transaction->employee->full_name }}</td>
-                        <td>{{ $transaction->description }}</td>
-                        <td>{{ $transaction->created_at->format('d/m/Y') }}</td>
-                        <td class="actions">
-                            {{--<a href="{{ route('manager.transactions.edit', $transaction->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>--}}
-                            <a href="{{ route('manager.transactions.show', $transaction->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
-                            {{--<form class="form-delete" action="{{ route('manager.transactions.destroy', $transaction->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
+                        <tr class="@if($transaction->transaction_type == 'entrada') entrada @else saida @endif">
+                            <td>{{ $transaction->id }}</td>
+                            <td>{{ ucwords($transaction->transaction_type) }}</td>
+                            <td>R$ {{ number_format($transaction->amount, 2, ',', '.') }}</td>
+                            <td>{{ $transaction->employee->full_name }}</td>
+                            <td>{{ $transaction->description }}</td>
+                            <td>{{ $transaction->created_at->format('d/m/Y') }}</td>
+                            <td class="actions">
+                                {{--<a href="{{ route('manager.transactions.edit', $transaction->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>--}}
+                                <a href="{{ route('manager.transactions.show', $transaction->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                                {{--<form class="form-delete" action="{{ route('manager.transactions.destroy', $transaction->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
 
-                                <a href="#" class="btn btn-danger btn-sm form-delete" data-id="{{ $transaction->id }}" data-name="{{ $transaction->transaction_type }}" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-trash"></i></a>
-                            </form>--}}
-                        </td>
-                    </tr>
+                                    <a href="#" class="btn btn-danger btn-sm form-delete" data-id="{{ $transaction->id }}" data-name="{{ $transaction->transaction_type }}" data-toggle="modal" data-target="#delete-modal"><i class="fas fa-trash"></i></a>
+                                </form>--}}
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
