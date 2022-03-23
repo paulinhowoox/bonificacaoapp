@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $employee->title)
+@section('title', $employee->full_name)
 
 @section('breadcrumb')
 <div class="page-breadcrumb">
@@ -12,7 +12,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('manager.employees.index') }}">Funcionários</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ $employee->title }}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $employee->full_name }}</li>
                     </ol>
                 </nav>
             </div>
