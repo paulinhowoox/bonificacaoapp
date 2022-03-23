@@ -117,7 +117,6 @@ class TransactionController extends Controller
         $user = auth()->user();
         $transaction = $this->transaction->find($id);
 
-
         $transaction->update($data, ['user_id' => $user->id]);
 
         if ($data['transaction_type'] == 'entrada') {

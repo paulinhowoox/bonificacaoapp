@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Manager;
 
-use App\Models\Employee;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Transaction;
+use App\Repositories\Contracts\EmployeeRepositoryInterface;
 
 class EmployeeController extends Controller
 {
 
     private $employee, $transaction;
 
-    public function __construct(Employee $employee, Transaction $transaction)
+    public function __construct(EmployeeRepositoryInterface $employee, Transaction $transaction)
     {
         $this->employee = $employee;
         $this->transaction = $transaction;
@@ -26,7 +25,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = $this->employee->all();
+        $employees = $this->employee->getAllEmployees();
         $full_name = $employees->sortBy('full_name')->pluck('full_name')->unique();
 
         return view('manager.employees.list', compact('employees', 'full_name'));
@@ -51,8 +50,7 @@ class EmployeeController extends Controller
     public function store(EmployeeRequest $request)
     {
         $data = $request->all();
-        $user = auth()->user();
-        $employee = $user->employee()->create($data, ['user_id' => $user->id]);
+        $employee = $this->employee->createEmployee($data);
 
         flash('Funcionário "' . $employee->full_name . '" cadastrado com sucesso!')->success();
         return redirect()->route('manager.employees.index');
@@ -66,7 +64,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        $employee = $this->employee->findOrFail($id);
+        $employee = $this->employee->getEmployeeById($id);
 
         return view('manager.employees.show', compact('employee'));
     }
@@ -79,7 +77,7 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $employee = $this->employee->findOrFail($id);
+        $employee = $this->employee->getEmployeeById($id);
 
         return view('manager.employees.edit', compact('employee'));
     }
@@ -93,11 +91,10 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeRequest $request, $id)
     {
-        $data = $request->all();
-        $user = auth()->user();
-        $employee = $this->employee->find($id);
+        $data = $request->except(['_method', '_token']);
+        $employee = $this->employee->getEmployeeById($id);
 
-        $employee->update($data, ['user_id' => $user->id]);
+        $this->employee->updateEmployee($id, $data);
 
         flash('Funcionário "' . $employee->full_name . '" atualizado com sucesso!')->success();
         return redirect()->route('manager.employees.index');
@@ -111,8 +108,8 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $employee = $this->employee->find($id);
-        $employee->delete();
+        $employee = $this->employee->getEmployeeById($id);
+        $this->employee->deleteEmployee($id);
 
         flash('Funcionário "' . $employee->full_name . '" excluido com sucesso!')->success();
         return redirect()->route('manager.employees.index');
@@ -120,7 +117,7 @@ class EmployeeController extends Controller
 
     public function transactions($id)
     {
-        if(!$employee = $this->employee->find($id)) {
+        if(!$employee = $this->employee->getEmployeeById($id)) {
             return redirect()->route('manager.employees.index');
         }
         $transactions = $employee->transactions()->get();
